@@ -32,6 +32,7 @@ class Parser {
 	}
 	
 	parseNumber(element){ 
+		//Rempli dans les noeud enfants si le noeud principal est déjà rempli
 		if(this._ast.right instanceof Node){
 			if( !this._ast.right.isNotNull()){
 				this._ast.right.setLeftOrRight(parseFloat(element.name));
@@ -44,6 +45,7 @@ class Parser {
 	}
 
 	parseSymbolePrioriteS(element){
+		//Création d'un nouveau parent si le noeud principal est rempli
 		if(this._ast.isNotNull()){
 			let newNode = new Node();
 			newNode.setLeft(this._ast);
@@ -55,6 +57,8 @@ class Parser {
 	}
 
 	parseSymbolePrioriteM(element){
+
+		//Création d'un noeud enfant si le noeud principal est rempli
 		if(this._ast.isNotNull()){
 			let rightElement = this._ast.right;
 			let newNode = new Node();
@@ -73,11 +77,13 @@ class Parser {
 
 	parseParenthese(){
 
+		//Création d'un nouveau parser spécial pour le calcul dans la parenthèse
 		let newParse = new Parser(this._tokens);
 		newParse._cursor = this._cursor + 1;
 		newParse.parser();
 		let subNode = newParse._ast;
 
+		//Rempli dans le noeud droit si possible
 		if(this._ast.right instanceof Node){
 			if(!this._ast.right.isNotNull()){
 				this._ast.right.setLeftOrRight(subNode);
