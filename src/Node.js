@@ -21,7 +21,7 @@ class Node{
     }
 
     getValue(){
-        //if(!this.isNotNull()) return "Mauvaise synthaxe, parsing incomplet";
+        if(!this.isNotNull()) return "Mauvaise synthaxe, parsing incomplet";
         if(this.operation != null){
             if(this.left instanceof Node){this.left = this.left.getValue()}
             if(this.right instanceof Node){this.right = this.right.getValue()}
